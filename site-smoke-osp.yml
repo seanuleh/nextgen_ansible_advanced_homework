@@ -9,7 +9,7 @@
 
   - name: Debug Info
     debug:
-      msg: "IP is: {{ result }}"
+      msg: "IP is: {{ result[0].public_v4 }}"
 
   
   # - name: Curl website
