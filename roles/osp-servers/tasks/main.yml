@@ -13,7 +13,7 @@
     meta: "{{ item.value.meta }}"
     userdata: |
       #!/bin/bash 
-      echo "{{ lookup('file', openstack.pub) }}" >> /home/cloud-user/.ssh/authorized_keys
+      echo "{{ lookup('file', 'openstack.pub') }}" >> /home/cloud-user/.ssh/authorized_keys
       curl -o /etc/yum.repos.d/internal.repo http://www.opentlc.com/download/ansible_bootcamp/repo/internal.repo
   with_dict: "{{ osp_servers }}"
 
