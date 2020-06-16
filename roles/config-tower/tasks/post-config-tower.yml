@@ -1,7 +1,11 @@
 - name: Create Homework Assignment project
+  tower_project:
+    name: "{{proj_name}}"
+    description: "{{proj_name}} project"
+    organization: "Default"
+    state: present
 
-
-- name: Machine Credentail to connect to workstation using openstack.pub
+- name: Machine Credential to connect to workstation using openstack.pub
   tower_credential:
     name: Connect_to_workstation
     organization: Default
