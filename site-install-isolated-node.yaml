@@ -1,4 +1,5 @@
 - hosts: localhost
+  become: yes
   vars:
     OSP_GUID: "{{ lookup('env','OSP_GUID') }}"
     OSP_DOMAIN: "{{ lookup('env','OSP_DOMAIN') }}"
