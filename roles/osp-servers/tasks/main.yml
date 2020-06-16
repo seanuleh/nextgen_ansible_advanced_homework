@@ -1,13 +1,5 @@
 ---
 # tasks file for osp.servers
-- name: Get openstack.pem contents
-  shell: cat /root/.ssh/openstack.pem
-  register: openstack_pem_pub_key
-
-- name: Get openstack.pub contents
-  shell: cat /root/.ssh/openstack.pub
-  register: openstack_pub_pub_key
-
 - name: Create instances
   os_server:
     cloud: openstack
@@ -21,8 +13,7 @@
     meta: "{{ item.value.meta }}"
     userdata: |
       #!/bin/bash 
-      echo "{{ openstack_pem_pub_key }}" >> /home/cloud-user/.ssh/authorized_keys
-      echo "{{ openstack_pub_pub_key }}" >> /home/cloud-user/.ssh/authorized_keys
+      echo "{{ lookup('file', openstack.pub) }}" >> /home/cloud-user/.ssh/authorized_keys
       curl -o /etc/yum.repos.d/internal.repo http://www.opentlc.com/download/ansible_bootcamp/repo/internal.repo
   with_dict: "{{ osp_servers }}"
 
