@@ -1,3 +1,38 @@
 ---
-
 # tasks file for osp.servers
+- name: Get openstack.pem contents
+  shell: cat /root/.ssh/openstack.pem
+  register: openstack_pem_pub_key
+
+- name: Get openstack.pub contents
+  shell: cat /root/.ssh/openstack.pub
+  register: openstack_pub_pub_key
+
+- name: Create instances
+  os_server:
+    cloud: openstack
+    name: "{{ item.value.name }}"
+    image: "{{ item.value.image }}"
+    key_name: "{{ item.value.key_name }}"
+    flavor: "{{ item.value.flavor }}"
+    security_groups: "{{ item.value.security_group }}"
+    nics:
+      - net-name: int_network
+    meta: "{{ item.value.meta }}"
+    userdata: |
+      #!/bin/bash 
+      echo "{{ openstack_pem_pub_key }}" >> /home/cloud-user/.ssh/authorized_keys
+      echo "{{ openstack_pub_pub_key }}" >> /home/cloud-user/.ssh/authorized_keys
+      curl -o /etc/yum.repos.d/internal.repo http://www.opentlc.com/download/ansible_bootcamp/repo/internal.repo
+  with_dict: "{{ osp_servers }}"
+
+- name: Add floating IP to instance
+  os_floating_ip:
+    cloud: openstack
+    state: "{{ item.value.state }}"
+    reuse: yes
+    server: "{{ item.value.name }}"
+    network: ext_network
+    wait: true
+    timeout: 200
+  with_dict: "{{ osp_servers }}"
