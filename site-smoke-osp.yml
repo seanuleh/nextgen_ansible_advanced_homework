@@ -8,18 +8,13 @@
 
   - name: Debug Info
     debug:
-      msg: "IP is: {{ domain.server[?name=='frontend'].accessIPv4}}"
+      msg: "IP is: {{ result | json_query(domain.server[?name=='frontend'].accessIPv4) }}"
   
   # - name: Curl website
   #   uri:
-  #     url: http://marathon.service.consul:8080/v2/apps/
-  #     method: POST
-  #     body: "{{ lookup('file','mesos-consul.json') }}"
-  #     body_format: json
-  #     headers:
-  #       Content-Type: "application/json"
-  #   loop: "{{result.openstack_servers}}"
-
+  #     url: "http://{{ result | json_query(domain.server[?name=='frontend'].accessIPv4) }}"
+  #     method: GET
+  #   register: webpage
 
   # - name: Fail if 'Ansible has done its job' is not in the page content
   #   fail:
