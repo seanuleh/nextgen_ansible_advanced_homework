@@ -1,2 +1,28 @@
 ---
+- name: install {{ package }}
+  package:
+    name: "{{ package }}"
+    state: latest
 
+- name: enable {{ package }} at boot
+  service:
+    name: "{{ item }}"
+    enabled: yes
+  loop: "{{ package }}"
+
+- name: create ansible tomcat directory
+  file:
+    path: "{{ tomcat_web_root }}"
+    state: directory
+
+- name: copy static index.html to tomcat root dir
+  template:
+    src: index.html.j2
+    dest: "{{ tomcat_web_root }}/index.html"
+    mode: 0644
+    
+- name: restart {{ package }}
+  service:
+    name: "{{ item }}"
+    state: restarted
+  loop: "{{ package }}"
