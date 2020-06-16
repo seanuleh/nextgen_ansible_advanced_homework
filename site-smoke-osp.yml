@@ -8,7 +8,7 @@
 
   - name: Debug Info
     debug:
-      msg: "{{result.openstack_servers}}"
+      msg: "IP is: {{ domain.server[?name=='frontend'].accessIPv4}}"
   
   # - name: Curl website
   #   uri:
