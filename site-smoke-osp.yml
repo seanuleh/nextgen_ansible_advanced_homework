@@ -4,14 +4,12 @@
   - name: OpenStack servers
     os_server_info:
       cloud: openstack
+      server: frontend
     register: result
 
   - name: Debug Info
     debug:
-      msg: "IP is: {{ item.accessIPv4 }}"
-    loop: {{ result | json_query(ip_query) }}
-    vars:
-      ip_query: "[*]"
+      msg: "IP is: {{ result }}"
 
   
   # - name: Curl website
