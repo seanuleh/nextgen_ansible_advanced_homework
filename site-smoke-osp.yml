@@ -2,12 +2,13 @@
   gather_facts: false
   tasks:
   - name: OpenStack servers
-      os_server_info:
+    os_server_info:
       cloud: openstack
     register: result
 
-  - debug:
-    msg: "{{result.openstack_servers}}"
+  - name: Debug Info
+    debug:
+      msg: "{{result.openstack_servers}}"
   
   # - name: Curl website
   #   uri:
