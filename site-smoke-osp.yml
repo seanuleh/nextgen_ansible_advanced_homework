@@ -8,7 +8,11 @@
 
   - name: Debug Info
     debug:
-      msg: "IP is: {{ result | json_query(domain.server[?name=='frontend'].accessIPv4) }}"
+      msg: "IP is: {{ item.accessIPv4 }}"
+    loop: {{ result | json_query(ip_query) }}
+    vars:
+      ip_query: "[*]"
+
   
   # - name: Curl website
   #   uri:
