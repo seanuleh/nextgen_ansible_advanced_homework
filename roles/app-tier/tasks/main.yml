@@ -1,14 +1,14 @@
 ---
-- name: install "{{ package }}"
+- name: install "{{ payload }}"
   package:
-    name: "{{ package }}"
+    name: "{{ payload }}"
     state: latest
 
-- name: enable "{{ package }}" at boot
+- name: enable "{{ payload }}" at boot
   service:
     name: "{{ item }}"
     enabled: yes
-  loop: "{{ package }}"
+  loop: "{{ payload }}"
 
 - name: create ansible tomcat directory
   file:
@@ -21,8 +21,8 @@
     dest: "{{ tomcat_web_root }}/index.html"
     mode: 0644
     
-- name: restart "{{ package }}"
+- name: restart "{{ payload }}"
   service:
     name: "{{ item }}"
     state: restarted
-  loop: "{{ package }}"
+  loop: "{{ payload }}"
