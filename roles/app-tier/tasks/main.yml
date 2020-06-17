@@ -6,9 +6,8 @@
 
 - name: enable "{{ payload }}" at boot
   service:
-    name: "{{ item }}"
+    name: "{{ payload }}"
     enabled: yes
-  loop: "{{ payload }}"
 
 - name: create ansible tomcat directory
   file:
@@ -23,6 +22,5 @@
     
 - name: restart "{{ payload }}"
   service:
-    name: "{{ item }}"
+    name: "{{ payload }}"
     state: restarted
-  loop: "{{ payload }}"
