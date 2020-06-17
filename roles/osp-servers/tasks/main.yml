@@ -8,6 +8,8 @@
     key_name: "{{ item.0.key_name }}"
     flavor: "{{ item.0.flavor }}"
     security_groups: "{{ item.0.security_group }}"
+    delete_fip: yes
+    wait: no
     nics:
       - net-name: int_network
     meta: "{{ item.1 }}"
