@@ -16,7 +16,8 @@
     userdata: |
       #!/bin/bash 
       echo "{{ lookup('file', 'openstack.pub') }}" >> /home/cloud-user/.ssh/authorized_keys
-      curl -o /etc/yum.repos.d/internal.repo http://www.opentlc.com/download/ansible_bootcamp/repo/internal.repo
+      # curl -o /etc/yum.repos.d/internal.repo http://www.opentlc.com/download/ansible_bootcamp/repo/internal.repo
+      # repos in the above link do not work, lets use the repos_template in role base-config
   with_subelements:
     - "{{ osp_servers }}"
     - meta
