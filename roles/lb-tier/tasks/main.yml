@@ -1,10 +1,10 @@
 ---
-- name: install {{ payload }}
+- name: install "{{ payload }}"
   yum:
     name: "{{ payload }}"
     state: latest
 
-- name: enable {{ payload }}
+- name: enable "{{ payload }}"
   service:
     name: "{{ payload }}"
     enabled: yes
@@ -15,7 +15,7 @@
     dest: /etc/haproxy/haproxy.cfg
     mode: 0644
 
-- name: restart {{ payload }}
+- name: restart "{{ payload }}"
   service:
     name: "{{ payload }}"
     state: restarted

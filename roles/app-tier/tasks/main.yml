@@ -1,10 +1,10 @@
 ---
-- name: install {{ package }}
+- name: install "{{ package }}"
   package:
     name: "{{ package }}"
     state: latest
 
-- name: enable {{ package }} at boot
+- name: enable "{{ package }}" at boot
   service:
     name: "{{ item }}"
     enabled: yes
@@ -21,7 +21,7 @@
     dest: "{{ tomcat_web_root }}/index.html"
     mode: 0644
     
-- name: restart {{ package }}
+- name: restart "{{ package }}"
   service:
     name: "{{ item }}"
     state: restarted
