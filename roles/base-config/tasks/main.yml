@@ -8,19 +8,15 @@
     replace: 'Defaults  !requiretty'
     backup: yes
 
-- name: enable repos
-  template:
-    src: repos_template.j2
-    dest: /etc/yum.repos.d/open_three-tier-app.repo
-    mode: 0644
+# Below is not needed since internal.repo is installed on the instances
+# during bootstrapping in osp-server role
+# - name: enable repos
+#   template:
+#     src: repos_template.j2
+#     dest: /etc/yum.repos.d/open_three-tier-app.repo
+#     mode: 0644
 
 - name: install base tools and packages
   yum:
-    name: "{{ item }}"
+    name: ['httpie', 'python-pip', 'haproxy', 'tomcat', 'postgresql-server']
     state: latest
-  with_items:
-    - httpie
-    - python-pip
-    - haproxy
-    - tomcat
-    - postgresql-server
